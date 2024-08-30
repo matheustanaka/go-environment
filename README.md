@@ -16,9 +16,9 @@ Realizacão do desafio de criacão de ambiente de com Docker compose
 # Como executar o código em seu ambiente local
 
 ```sh
-git clone
+git clone https://github.com/matheustanaka/go-environment.git
 
-cd project
+cd go-environment
 
 docker-compose -up --build -d
 ```
