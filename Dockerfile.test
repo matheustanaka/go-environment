@@ -1,0 +1,11 @@
+FROM golang:1.23-alpine
+
+WORKDIR /app/src
+
+COPY go.mod go.sum main.go ./
+
+RUN go mod tidy
+
+EXPOSE 3000
+
+CMD [ "go", "run", "main.go" ]

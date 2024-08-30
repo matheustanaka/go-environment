@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=postgres 
+      - POSTGRES_DB=postgres 
+    ports:
+      - 5432:5432 
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - primeira-network-bridge
+
+  go-db:
+    container_name: go-db
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - primeira-network-bridge
+
+networks:
+  primeira-network-bridge:
+    name: primeira-network-bridge
+    external: true
+    driver: bridge
+
+volumes:
+  db:
