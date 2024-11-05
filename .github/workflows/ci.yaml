@@ -10,19 +10,19 @@ jobs:
     name: 'Build and Push'
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup Golang 
-      uses: actions/setup-go@v5
-      with:
-        go-version: 1.22.2
+      - name: Setup Golang 
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.22.2
 
-    - name: Docker Login
-      run: docker login -u {{ secrets.DOCKER_USERNAME }}
-      run: {{ secrets.DOCKER_PASSWORD }}
+      - name: Docker Login
+        run: docker login -u {{ secrets.DOCKER_USERNAME }}
+        run: {{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build image and push
-      run: docker build -t go-api-connect-db:v1
-      run: docker push docker push matheustanaka/go-api-connect-db:v1
+      - name: Build image and push
+        run: docker build -t go-api-connect-db:v1
+        run: docker push docker push matheustanaka/go-api-connect-db:v1
