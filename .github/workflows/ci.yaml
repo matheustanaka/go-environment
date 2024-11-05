@@ -25,5 +25,5 @@ jobs:
 
       - name: Build image and push
         run: | 
-          docker build -t go-api-connect-db:v1
+          docker build -t go-api-connect-db:v1 .
           docker push docker push matheustanaka/go-api-connect-db:v1
