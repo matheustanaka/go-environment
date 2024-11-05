@@ -25,7 +25,7 @@ jobs:
 
       - name: Build image and push
         run: | 
-        COUNT=$(git rev-list --count main)
+          COUNT=$(git rev-list --count main)
           echo "${COUNT}" >> $GITHUB_OUTPUT
           docker build -t matheustanaka/go-api-connect-db:$GITHUB_OUTPUT .
           docker push matheustanaka/go-api-connect-db:$GITHUB_OUTPUT
