@@ -23,7 +23,16 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      - name: Generate tag based on commit hash
+        id: generate_tag
+        run: |
+          SHA=$(echo $GITHUB_SHA | head -c7)
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+
       - name: Build image and push
+        env: 
+          REGISTRY: matheustanaka
+          TAG: ${{ steps.generate_tag.outputs.sha }}
         run: | 
-          docker build -t matheustanaka/go-api-connect-db:v1 .
-          docker push matheustanaka/go-api-connect-db:v1
+          docker build -t $REGISTRY/go-api-connect-db:$TAG .
+          docker push $REGISTRY/go-api-connect-db:$TAG
