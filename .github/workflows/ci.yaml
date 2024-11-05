@@ -25,6 +25,5 @@ jobs:
 
       - name: Build image and push
         run: | 
-          COUNT=$(git rev-list --count main)
-          docker build -t matheustanaka/go-api-connect-db:$COUNT .
-          docker push matheustanaka/go-api-connect-db:$COUNT
+          docker build -t matheustanaka/go-api-connect-db:v1 .
+          docker push matheustanaka/go-api-connect-db:v1
