@@ -39,10 +39,15 @@ jobs:
           SHA=$(echo $GITHUB_SHA | head -c7)
           echo "sha=$SHA" >> $GITHUB_OUTPUT
 
-      - name: Build image and push
+      - name: Pull, Tag and Build image 
         env: 
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           TAG: ${{ steps.generate_tag.outputs.sha }}
         run: | 
+          docker pull postgres:latest
+          docker tag postgres:latest $REGISTRY/postgres:$TAG
           docker build -t $REGISTRY/go-api:$TAG .
           docker push $REGISTRY/go-api:$TAG
+          docker push $REGISTRY/postgres:$TAG
+
+
