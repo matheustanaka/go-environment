@@ -54,9 +54,6 @@ jobs:
       
       - name: SSH to deploy on EC2 Server
         uses: appleboy/ssh-action@v1.2.0
-        # env:
-        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -68,4 +65,7 @@ jobs:
 
             docker pull 575108923772.dkr.ecr.us-east-1.amazonaws.com/go-api:${{ steps.generate_tag.outputs.sha }}
             docker pull 575108923772.dkr.ecr.us-east-1.amazonaws.com/postgres:${{ steps.generate_tag.outputs.sha }}
+            
+            docker run --name go-api -d -p 3000:3000 575108923772.dkr.ecr.us-east-1.amazonaws.com/go-api:${{ steps.generate_tag.outputs.sha }}
+            docker run --name postgres-db -d -p 5432:5432 575108923772.dkr.ecr.us-east-1.amazonaws.com/postgres:${{ steps.generate_tag.outputs.sha }}
 
