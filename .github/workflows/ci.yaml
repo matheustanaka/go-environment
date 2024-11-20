@@ -66,6 +66,7 @@ jobs:
             docker pull 575108923772.dkr.ecr.us-east-1.amazonaws.com/go-api:${{ steps.generate_tag.outputs.sha }}
             docker pull 575108923772.dkr.ecr.us-east-1.amazonaws.com/postgres:${{ steps.generate_tag.outputs.sha }}
             
-            docker run --name go-api -d -p 3000:3000 575108923772.dkr.ecr.us-east-1.amazonaws.com/go-api:${{ steps.generate_tag.outputs.sha }}
             docker run --rm --name postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d 575108923772.dkr.ecr.us-east-1.amazonaws.com/postgres:${{ steps.generate_tag.outputs.sha }}
+            sleep 30s
+            docker run --name go-api -d -p 3000:3000 575108923772.dkr.ecr.us-east-1.amazonaws.com/go-api:${{ steps.generate_tag.outputs.sha }}
 
