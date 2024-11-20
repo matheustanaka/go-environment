@@ -1,8 +1,18 @@
-version: '3.7'
-
 services:
+  go-api:
+    container_name: go-api
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - primeira-network-bridge
+
   postgres:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgres
     environment:
       - POSTGRES_USER=postgres 
@@ -14,17 +24,11 @@ services:
       - db:/var/lib/postgresql/data
     networks:
       - primeira-network-bridge
-
-  go-db:
-    container_name: go-db
-    build:
-      context: .
-    ports:
-      - 3000:3000
-    depends_on:
-      - postgres
-    networks:
-      - primeira-network-bridge
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 networks:
   primeira-network-bridge:

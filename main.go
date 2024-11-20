@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	time.Sleep(150 * time.Second)
 	connectionStr := "host=postgres user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
 
 	connection, err := sql.Open("postgres", connectionStr)
