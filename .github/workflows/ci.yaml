@@ -50,5 +50,13 @@ jobs:
           docker build -t $REGISTRY/go-api:$TAG .
           docker push $REGISTRY/go-api:$TAG
           docker push $REGISTRY/postgres:$TAG
-
-
+      
+      - name: SSH to deploy on EC2 Server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }} # Private key
+          port: ${{ secrets.PORT }}
+          script: whoami
+            
