@@ -53,10 +53,17 @@ jobs:
       
       - name: SSH to deploy on EC2 Server
         uses: appleboy/ssh-action@v1.2.0
+        env: 
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          TAG: ${{ steps.generate_tag.outputs.sha }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }} # Private key
           port: ${{ secrets.PORT }}
-          script: whoami
-            
+          script: |
+              aws configure set role_arn arn:aws:iam::575108923772:role/ecr-role
+              aws configure set region us-east-1
+              aws configure set output json
+              aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 575108923772.dkr.ecr.us-east-1.amazonaws.com
+
