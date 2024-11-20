@@ -67,8 +67,10 @@ jobs:
             export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
             export AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
             export AWS_DEFAULT_REGION=us-east-1
-            echo "Printando a porra do access key id"
-            echo $AWS_ACCESS_KEY_ID
+            echo "Printando a porra do access key id: $AWS_ACCESS_KEY_ID"
+            echo "Printando a porra da secret: $AWS_SECRET_ACCESS_KEY"
+            echo "Printando a porra do session token: $AWS_SESSION_TOKEN"
+            echo "Printando a porra da region: $AWS_DEFAULT_REGION"
 
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 575108923772.dkr.ecr.us-east-1.amazonaws.com
 
