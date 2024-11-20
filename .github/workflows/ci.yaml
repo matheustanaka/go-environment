@@ -69,7 +69,6 @@ jobs:
 
             echo "printando a aws access key id: ${AWS_ACCESS_KEY_ID}"
             echo "printando a aws secret key: ${AWS_SECRET_ACCESS_KEY}"
-            echo "printando a port: ${{ secrets.PORT }}"
 
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 575108923772.dkr.ecr.us-east-1.amazonaws.com
 
